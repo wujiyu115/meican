@@ -1,4 +1,6 @@
 # INTRO
+完善了一下 [hui-z](https://github.com/hui-z/mcm) 的逻辑
+
 美餐自动订餐,在截止订餐时间前自动订餐
 
 ## 订餐逻辑
@@ -17,8 +19,18 @@ order_week = 1,2,3,4,5
 other_recommend = false
 ```
 
+
 ## 运行
+
 双击 `start.bat`
+
+### 需知
+为了在其他电脑上也可以运行,我把`python`环镜便携安装到了项目目录重命令为`py`,`python`的便携安装很简单,只要在安装时选择`Install just for me` 就会把`dll`等依赖也安装在`python`目录下
+
+
+# build.bat
++ 需先便携化`python`在本项目重命名为`py`
++ 依赖`7z`压缩
 
 
 # TODO
