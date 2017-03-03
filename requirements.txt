@@ -1,0 +1,6 @@
+requests
+pyyaml
+schedule
+python-dateutil
+pprint
+colorama
