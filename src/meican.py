@@ -124,10 +124,7 @@ class MeiCan:
         return mc_time_info
 
     def calendar_items(self):
-        if not hasattr(self, "_calendar"):
-            calender_url = calender_items_url()
-            self._calendar = json.loads(self.get(calender_url).content)
-        return self._calendar
+        return json.loads(self.get(calender_items_url()).content)
 
     def get_restaurants(self, tab):
         return json.loads(self.get(restaurants_url(tab)).content)['restaurantList']
