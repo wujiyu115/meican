@@ -2,7 +2,7 @@
 # @Author: wujiyu
 # @Date:   2017-02-26 22:49:03
 # @Last Modified by:   wujiyu
-# @Last Modified time: 2017-03-06 16:40:34
+# @Last Modified time: 2017-03-24 10:43:24
 import requests
 import logging
 # requests.packages.urllib3.disable_warnings()
@@ -69,6 +69,8 @@ if __name__ == '__main__':
         time_str = "%s:%s"%(time_item.hour, time_item.minute)
         schedule.every(1).day.at(time_str).do(order, meican)
     info("meican | next order time: | [[%s]]"%schedule.next_run())
+
+    # meican.order()
 
     # schedule.every(1).hour.do(do_job)
     while True:

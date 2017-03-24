@@ -3,12 +3,12 @@
 # @Author: wujiyu
 # @Date:   2016-03-15 20:43:04
 # @Last Modified by:   wujiyu
-# @Last Modified time: 2017-03-02 14:52:01
+# @Last Modified time: 2017-03-24 10:36:26
 import threading
 import os,ConfigParser
 import pprint
 from util.obj_util import obj_dict
-
+import codecs
 
 class ConfigUtil(object):
     _instance_lock = threading.Lock()
@@ -27,10 +27,9 @@ class ConfigUtil(object):
 
     def setConfigFile(self,fixed_config_file="cfg/config.conf"):
         self.fixed_config_file = fixed_config_file
-        # root_path = os.path.split(os.path.realpath(__file__))[0] +"/"
-        # fixed_path =  root_path+self.fixed_config_file
         fixed_config = ConfigParser.ConfigParser()
-        fixed_config.read(fixed_config_file)
+        fixed_config.readfp(codecs.open(fixed_config_file, "r", "utf-8"))
+        # fixed_config.read(fixed_config_file)
 
         for section in fixed_config.sections():
             for p, value in fixed_config.items(section):
@@ -40,7 +39,7 @@ class ConfigUtil(object):
                     if value=="true" or value=="false" :
                         setattr(self,p,fixed_config.getboolean(section,p))
                     else:
-                        vt = str(value).strip().split(",")
+                        vt = value.strip().split(",")
                         if len(vt) > 1:
                             setattr(self,p,vt)
                         else:

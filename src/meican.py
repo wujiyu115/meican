@@ -204,11 +204,14 @@ class MeiCan:
         # dish_lst.sort(key = lambda dish: dish.priceInCent, reverse = True)
         main_lst = []
         side_lst = []
+
+        ignore_dishs = ConfigUtil.instance().ignore_dish
         for dish_item in dish_lst:
-            if dish_item.priceInCent > limit_cent * 0.6:
-                main_lst.append(dish_item)
-            else:
-                side_lst.append(dish_item)
+            if not any(dish_item.name in s for s in ignore_dishs):
+                if dish_item.priceInCent > limit_cent * 0.6:
+                    main_lst.append(dish_item)
+                else:
+                    side_lst.append(dish_item)
 
         dis_count = 1
         select_cent = 0

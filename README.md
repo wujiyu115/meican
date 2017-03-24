@@ -17,6 +17,8 @@ ahead_min = 10
 order_week = 1,2,3,4,5
 #是否订同事常订的餐 true,false
 other_recommend = false
+#忽略的菜品关键字
+ignore_dish = 韩国泡菜,烧鸭
 ```
 
 
@@ -43,3 +45,4 @@ other_recommend = false
 + [x] 删除订单
 + [x] 十二点请求中餐晚餐截止订餐时间
 + [x] 订多个菜
++ [x] 忽略菜品
