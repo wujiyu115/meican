@@ -205,18 +205,25 @@ class MeiCan:
         main_lst = []
         side_lst = []
 
+        dis_count = 1
+        select_cent = 0
+        select_dish = []
+        order_desc = OrderDesc()
+
+        if empty_list(dish_lst):
+            return select_dish, order_desc
+
         ignore_dishs = ConfigUtil.instance().ignore_dish
         for dish_item in dish_lst:
-            if not any(dish_item.name in s for s in ignore_dishs):
+            if len(filter(lambda x:x in dish_item.name, ignore_dishs)) == 0:
                 if dish_item.priceInCent > limit_cent * 0.6:
                     main_lst.append(dish_item)
                 else:
                     side_lst.append(dish_item)
 
-        dis_count = 1
-        select_cent = 0
-        select_dish = []
-        order_desc = OrderDesc()
+        #筛选后没有主食
+        if len(main_lst) ==0:
+            return select_dish, order_desc
 
         main_index = random.randint(0, len(main_lst) - 1)
         side_lst.insert(0, main_lst[main_index])
@@ -236,16 +243,13 @@ class MeiCan:
         address_uid = user_tab_corp['addressList'][0]['uniqueId']
         price_limit_cent = user_tab_corp['priceLimitInCent']
 
-        dish_ids = []
-        desc_obj = None
         code, re_lsts = self.recommends_dish_list(tab)
         if code != ErrCode.ok:
             return code
-        if not empty_list(re_lsts):
-            dish_ids, desc_obj = self.group_dish(price_limit_cent, re_lsts)
-        else:
-            dish_lists = self.restaurant_dish_list(tab)
-            dish_ids, desc_obj = self.group_dish(price_limit_cent, dish_lists)
+
+        dish_ids, desc_obj = self.group_dish(price_limit_cent, re_lsts)
+        if empty_list(dish_ids):
+            dish_ids, desc_obj = self.group_dish(price_limit_cent, self.restaurant_dish_list(tab))
         if empty_list(dish_ids):
             return ErrCode.money_dish_error
         resp = self.order_request(tab, dish_ids, address_uid)
