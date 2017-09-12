@@ -9,7 +9,7 @@ robocopy util mcm_build/util /mir
 xcopy main.py mcm_build 
 xcopy README.md mcm_build 
 xcopy start.bat mcm_build 
-
+xcopy gen_startup.bat mcm_build
 
 py\python -m compileall -f mcm_build
 cd mcm_build && del /s /q *.py,*.cookie

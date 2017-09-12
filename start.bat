@@ -1,4 +1,6 @@
 @echo off
+chcp 936
+
 rem setlocal enabledelayedexpansion
 rem color 02
 rem mode con cols=80 lines=20
